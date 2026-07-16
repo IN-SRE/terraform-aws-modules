@@ -5,7 +5,6 @@
 resource "aws_dynamodb_table" "aft_request_metadata" {
   name         = "aft-request-metadata"
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "id"
 
   attribute {
     name = "id"
@@ -55,7 +54,6 @@ resource "aws_dynamodb_table" "aft_request_metadata" {
 resource "aws_dynamodb_table" "aft_request" {
   name             = "aft-request"
   billing_mode     = "PAY_PER_REQUEST"
-  hash_key         = "id"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
@@ -78,7 +76,6 @@ resource "aws_dynamodb_table" "aft_request" {
 resource "aws_dynamodb_table" "aft_request_audit" {
   name             = "aft-request-audit"
   billing_mode     = "PAY_PER_REQUEST"
-  hash_key         = "id"
   range_key        = "timestamp"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
@@ -107,7 +104,6 @@ resource "aws_dynamodb_table" "aft_request_audit" {
 resource "aws_dynamodb_table" "aft_controltower_events" {
   name             = "aft-controltower-events"
   billing_mode     = "PAY_PER_REQUEST"
-  hash_key         = "id"
   range_key        = "time"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
@@ -137,7 +133,6 @@ resource "aws_dynamodb_table" "aft_controltower_events" {
 resource "aws_dynamodb_table" "aft_customizations_audit" {
   name         = "aft-customizations-audit"
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "execution_id"
   range_key    = "timestamp"
 
   attribute {
