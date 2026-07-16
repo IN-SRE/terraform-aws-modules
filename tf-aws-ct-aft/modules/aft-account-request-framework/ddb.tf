@@ -24,13 +24,19 @@ resource "aws_dynamodb_table" "aft_request_metadata" {
 
   global_secondary_index {
     name            = "typeIndex"
-    hash_key        = "type"
     projection_type = "ALL"
+    key_schema {
+        attribute_name = "type"
+        key_type  = "HASH"
+      }
   }
 
   global_secondary_index {
     name               = "emailIndex"
-    hash_key           = "email"
+    key_schema {
+      attribute_name = "email"
+      key_type       = "HASH"
+    }
     projection_type    = "INCLUDE"
     non_key_attributes = ["id"]
   }
