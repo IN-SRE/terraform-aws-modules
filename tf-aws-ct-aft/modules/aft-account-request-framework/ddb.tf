@@ -6,10 +6,6 @@ resource "aws_dynamodb_table" "aft_request_metadata" {
   name         = "aft-request-metadata"
   billing_mode = "PAY_PER_REQUEST"
 
-  attribute {
-    name = "id"
-    type = "S"
-  }
 
   attribute {
     name = "email"
@@ -57,11 +53,6 @@ resource "aws_dynamodb_table" "aft_request" {
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
-  attribute {
-    name = "id"
-    type = "S"
-  }
-
   point_in_time_recovery {
     enabled = true
   }
@@ -79,11 +70,6 @@ resource "aws_dynamodb_table" "aft_request_audit" {
   range_key        = "timestamp"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
-
-  attribute {
-    name = "id"
-    type = "S"
-  }
 
   attribute {
     name = "timestamp"
@@ -108,10 +94,7 @@ resource "aws_dynamodb_table" "aft_controltower_events" {
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
-  attribute {
-    name = "id"
-    type = "S"
-  }
+
 
   attribute {
     name = "time"
@@ -135,10 +118,6 @@ resource "aws_dynamodb_table" "aft_customizations_audit" {
   billing_mode = "PAY_PER_REQUEST"
   range_key    = "timestamp"
 
-  attribute {
-    name = "execution_id"
-    type = "S"
-  }
 
   attribute {
     name = "timestamp"
