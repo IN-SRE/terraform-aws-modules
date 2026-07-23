@@ -36,7 +36,7 @@ provider "aws" {
   alias  = "audit"
   region = var.ct_home_region
   assume_role {
-    role_arn     = "arn:${data.aws_partition.current.partition}:iam::${var.audit_account_id}:role/AWSControlTowerExecution"
+    role_arn     = "arn:${data.aws_partition.current.partition}:iam::${var.audit_account_id}:role/service-role/AWSControlTowerStackSetRole"
     session_name = local.aft_session_name
   }
   default_tags {
