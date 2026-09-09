@@ -52,7 +52,7 @@ output "iam_instance_profile_arn" {
 
 output "sns_topic_arn" {
   description = "ARN of the SNS topic used for ASG notifications (null if disabled)."
-  value       = aws_sns_topic.this[0].arn
+  value       = length(aws_sns_topic.this) > 0 ? aws_sns_topic.this[0].arn : null
 }
 
 # Scaling Policies
