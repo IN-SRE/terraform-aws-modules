@@ -28,6 +28,12 @@ variable "ami_id" {
   type        = string
 }
 
+variable "public_ip" {
+  description = "Whether to associate a public IP address with instances launched via the template."
+  type        = bool
+  default     = false
+  
+}
 variable "instance_type" {
   description = "EC2 instance type."
   type        = string
