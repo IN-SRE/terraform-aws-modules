@@ -10,6 +10,11 @@ variable "environment" {
   type        = string
 }
 
+variable "component" {
+  description = "Component name for resource naming and tagging."
+  type        = string
+}
+
 variable "tags" {
   description = "Additional tags to apply to all resources created by this module."
   type        = map(string)

@@ -1,5 +1,5 @@
 locals {
-  name_prefix = "${var.project}-${var.environment}"
+  name_prefix = "${var.project}-${var.environment}-${var.component}"
 
   launch_template_name = "${local.name_prefix}-lt"
   asg_name              = "${local.name_prefix}-asg"
