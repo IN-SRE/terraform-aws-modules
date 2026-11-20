@@ -1,0 +1,80 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
+module "alb" {
+  source = "./modules/alb"
+
+  name       = "dev-app"
+  vpc_id     = "vpc-0a1b2c3d4e5f67890"
+  subnets    = ["subnet-0aaa1111bbb22222c", "subnet-0ddd3333eee44444f"]
+  internal   = false
+
+  security_group_ids         = ["sg-0123456789abcdef0"]
+  enable_deletion_protection = false
+  idle_timeout               = 60
+
+  target_groups = {
+    app = {
+      port                 = 8080
+      protocol             = "HTTP"
+      health_check_path    = "/health"
+      deregistration_delay = 30
+      targets = [
+        { id = "i-0f1e2d3c4b5a69788" },
+        { id = "i-0a9b8c7d6e5f41322" }
+      ]
+    }
+
+    api = {
+      port              = 8081
+      protocol          = "HTTP"
+      health_check_path = "/api/health"
+      targets = [
+        { id = "i-0112233445566778a" }
+      ]
+    }
+  }
+
+  listeners = {
+    http = {
+      port                 = 80
+      protocol             = "HTTP"
+      default_action_type  = "redirect"
+      redirect_port        = "443"
+      redirect_protocol    = "HTTPS"
+      redirect_status_code = "HTTP_301"
+    }
+
+    https = {
+      port                = 443
+      protocol            = "HTTPS"
+      certificate_arn     = "arn:aws:acm:us-east-1:123456789012:certificate/1234abcd-12ab-34cd-56ef-1234567890ab"
+      ssl_policy          = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+      default_action_type = "forward"
+      target_group_key    = "app"
+    }
+  }
+
+  listener_rules = {
+    api_path = {
+      listener_key     = "https"
+      priority         = 10
+      target_group_key = "api"
+      path_patterns    = ["/api/*"]
+    }
+
+    admin_host = {
+      listener_key     = "https"
+      priority         = 20
+      target_group_key = "app"
+      host_headers     = ["admin.example.com"]
+    }
+  }
+
+  tags = {
+    Environment = "dev"
+    Project     = "dev-app"
+    ManagedBy   = "terraform"
+  }
+}
