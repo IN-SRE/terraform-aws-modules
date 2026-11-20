@@ -255,3 +255,9 @@ variable "target_tracking_policies" {
   }))
   default = {}
 }
+
+variable "target_group_arns" {
+  description = "List of ALB Target Group ARNs"
+  type        = list(string)
+  default     = []
+}

@@ -10,8 +10,9 @@ resource "aws_launch_template" "this" {
 
    network_interfaces {
     associate_public_ip_address = var.public_ip
+    security_groups = var.security_group_ids
   }
-  vpc_security_group_ids = var.security_group_ids
+ 
 
    # bootstrap script for the instance on first boot
   user_data = filebase64(var.user_data_path)
@@ -83,6 +84,7 @@ resource "aws_autoscaling_group" "this" {
   health_check_grace_period = var.health_check_grace_period
   force_delete              = var.force_delete
   vpc_zone_identifier        = var.vpc_zone_identifiers
+  target_group_arns         = var.target_group_arns
 
   launch_template {
     id      = aws_launch_template.this.id
