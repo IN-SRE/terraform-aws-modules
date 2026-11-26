@@ -15,7 +15,7 @@ resource "aws_launch_template" "this" {
  
 
    # bootstrap script for the instance on first boot
-  user_data = filebase64(var.user_data_path)
+  user_data = base64encode(templatefile(var.user_data_path, var.user_data_vars))
 
   iam_instance_profile {
     arn = local.instance_profile_arn

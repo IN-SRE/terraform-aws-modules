@@ -56,6 +56,12 @@ variable "user_data_path" {
   default     = null
 }
 
+variable "user_data_vars" {
+  description = "Map of variables to pass to the user_data template file."
+  type    = map(string)
+  default = {}
+}
+
 variable "block_device_mappings" {
   description = "map of block device mappings for the launch template."
   type = map(object({
